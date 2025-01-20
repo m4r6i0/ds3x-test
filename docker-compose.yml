@@ -1,0 +1,4 @@
+GCP_SERVICE_ACCOUNT=service-account.json
+BIGQUERY_DATASET=ps-eng-dados-ds3x
+ICC_URL=https://www.fecomercio.com.br/upload/file/2024/12/16/icc_link_download_202412.xlsx
+ICF_URL=https://www.fecomercio.com.br/upload/file/2024/12/18/icf_link_download_202412.xlsx
