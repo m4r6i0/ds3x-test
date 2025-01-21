@@ -18,11 +18,16 @@ def setup_driver(download_dir):
     options.add_argument("--headless")  # Executa o navegador em modo headless
     options.add_argument("--no-sandbox")
     options.add_argument("--disable-dev-shm-usage")
+    options.add_argument("--disable-gpu")
+    options.add_argument("--disable-extensions")
+    options.add_argument(f"--window-size=1920,1080")
+    options.add_argument("--disable-setuid-sandbox")
 
     config_temp_downloads(download_dir, options)
     logger.info(f"configuration driver ... : {options}")
 
     return webdriver.Chrome(service=service, options=options)
+    #return webdriver.Chrome(service=Service("/usr/bin/chromedriver"), options=options)
 
 def download_with_selenium(url, output_path):
     """Faz o download do arquivo usando Selenium para uma pasta temporária"""

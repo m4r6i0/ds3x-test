@@ -1,25 +1,41 @@
 # Dockerfile
 
-# Usar uma imagem base mais recente do Python
-FROM python:3.10-slim
+FROM python:3.11-slim
 
-# Definir o diretório de trabalho dentro do contêiner
+# Definir o diretório de trabalho
 WORKDIR /app
 
-# Instalar dependências do sistema
+# Instalar dependências do sistema necessárias
 RUN apt-get update && apt-get install -y \
     wget \
     unzip \
+    curl \
+    gnupg \
+    ca-certificates \
+    libnss3 \
+    libgconf-2-4 \
+    fonts-liberation \
+    libgbm1 \
+    libvulkan1 \
+    xdg-utils \
+    chromium \
+    chromium-driver \
     && rm -rf /var/lib/apt/lists/*
 
-# Copiar os arquivos de dependências para o contêiner
+# Criar ambiente virtual
+RUN python3 -m venv /app/venv
+
+# Ativar o ambiente virtual e instalar dependências
 COPY requirements.txt /app/
+RUN /app/venv/bin/pip install --upgrade pip && /app/venv/bin/pip install --no-cache-dir -r requirements.txt
 
-# Atualizar o pip antes de instalar as dependências
-RUN pip install --upgrade pip && pip install --no-cache-dir -r requirements.txt
-
-# Copiar o restante dos arquivos do projeto para o contêiner
+# Copiar os arquivos do projeto para o contêiner
 COPY . /app/
 
-# Definir o comando padrão ao iniciar o contêiner
+# Adicionar o ambiente virtual ao PATH
+ENV PATH="/app/venv/bin:$PATH"
+ENV CHROME_BIN=/usr/bin/chromium
+ENV CHROME_DRIVER=/usr/bin/chromedriver
+
+# Comando padrão
 CMD ["python", "main.py"]

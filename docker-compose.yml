@@ -12,4 +12,7 @@ services:
       - .env  # Carrega as variáveis de ambiente do arquivo .env
     environment:
       - PYTHONUNBUFFERED=1  # Garante logs em tempo real
+      - GCP_SERVICE_ACCOUNT=/app/auth/SA-marcio_costa.json # Sobrescreve a variável para o caminho correto dentro do contêiner
+      - CHROME_BIN=/usr/bin/chromium
+      - CHROME_DRIVER=/usr/bin/chromedriver
     command: python main.py  # Executa o script Python ao iniciar
