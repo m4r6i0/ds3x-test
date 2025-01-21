@@ -1,4 +1,15 @@
-GCP_SERVICE_ACCOUNT=service-account.json
-BIGQUERY_DATASET=ps-eng-dados-ds3x
-ICC_URL=https://www.fecomercio.com.br/upload/file/2024/12/16/icc_link_download_202412.xlsx
-ICF_URL=https://www.fecomercio.com.br/upload/file/2024/12/18/icf_link_download_202412.xlsx
+version: '3.8'
+
+services:
+  python-script:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/app  # Monta o diretório atual no contêiner
+      - ${GCP_SERVICE_ACCOUNT}:/app/auth/SA-marcio_costa.json # Monta o arquivo de autenticação no contêiner
+    env_file:
+      - .env  # Carrega as variáveis de ambiente do arquivo .env
+    environment:
+      - PYTHONUNBUFFERED=1  # Garante logs em tempo real
+    command: python main.py  # Executa o script Python ao iniciar
