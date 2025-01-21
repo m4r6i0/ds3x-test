@@ -1,31 +1,65 @@
 import re
 import pandas as pd
 from datetime import datetime
+import logging
+
+# Configuração do logger
+def setup_logger():
+    logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+    return logging.getLogger(__name__)
+
+logger = setup_logger()
 
 def normalize_column_names(df):
-    """Normaliza os nomes das colunas removendo caracteres especiais e espaços."""
+    """Renomeia e normaliza os nomes das colunas para atender aos requisitos das queries."""
+    rename_map = {
+        'ÍNDICES E SEGMENTAÇÕES': 'indice',
+        'Variação (%)': 'variacao'
+    }
+    df = df.rename(columns=rename_map)
     df.columns = [
         re.sub(r'[^a-zA-Z0-9_]', '_', col).lower()  # Substitui caracteres especiais por "_"
         for col in df.columns
     ]
     return df
 
+def process_and_combine_sheets(file_path):
+    """Processa todas as abas do Excel, renomeando colunas e combinando em um único DataFrame."""
+    try:
+        # Lê todas as abas do arquivo Excel
+        sheets = pd.read_excel(file_path, sheet_name=None)
+        combined_df = pd.DataFrame()
+
+        # Itera pelas abas e processa
+        for sheet_name, df in sheets.items():
+            # Renomeia e normaliza as colunas
+            df = normalize_column_names(df)
+
+            # Filtra apenas as colunas relevantes
+            relevant_columns = ['indice', 'variacao']
+            df = df[[col for col in df.columns if col in relevant_columns]]
+
+            # Adiciona ao DataFrame combinado
+            combined_df = pd.concat([combined_df, df], ignore_index=True)
+
+        return combined_df
+    except Exception as e:
+        logger.error(f"Erro ao processar as abas do arquivo: {e}")
+        raise
+
 def convert_xlsx_to_csv(input_filepath, output_filepath):
     """Converte um arquivo .xlsx para .csv e adiciona a coluna load_timestamp."""
     try:
-        # Lê o arquivo .xlsx
-        df = pd.read_excel(input_filepath)
-
-        # Normaliza os nomes das colunas
-        df = normalize_column_names(df)
+        # Processa e combina as abas do Excel
+        combined_df = process_and_combine_sheets(input_filepath)
 
         # Adiciona a coluna load_timestamp
-        df['load_timestamp'] = datetime.utcnow().isoformat()
+        combined_df['load_timestamp'] = datetime.utcnow().isoformat()
 
-        # Salva como .csv
-        df.to_csv(output_filepath, index=False)
-        print(f"Arquivo convertido para CSV: {output_filepath}")
+        # Salva como CSV
+        combined_df.to_csv(output_filepath, index=False)
+        logger.info(f"Arquivo convertido com sucesso: {output_filepath}")
         return output_filepath
     except Exception as e:
-        print(f"Erro ao converter {input_filepath} para CSV: {e}")
+        logger.error(f"Erro ao converter o arquivo {input_filepath}: {e}")
         raise

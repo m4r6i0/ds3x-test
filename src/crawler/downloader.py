@@ -20,14 +20,14 @@ def setup_driver(download_dir):
     options.add_argument("--disable-dev-shm-usage")
 
     config_temp_downloads(download_dir, options)
-    logger.info("configuration driver", options)
+    logger.info(f"configuration driver ... : {options}")
 
     return webdriver.Chrome(service=service, options=options)
 
 def download_with_selenium(url, output_path):
     """Faz o download do arquivo usando Selenium para uma pasta temporária"""
     with tempfile.TemporaryDirectory() as temp_dir:  # Cria uma pasta temporária
-        logger.info("Temp Directory", temp_dir)
+        logger.info(f"Temp Directory ... : {temp_dir}")
         driver = setup_driver(temp_dir)
         try:
             logger.info(f"Read page: {url}")
@@ -57,7 +57,7 @@ def download_with_selenium(url, output_path):
             logger.info(f"Saved file in {output_path}")
 
         except Exception as e:
-            print(f"Erro ao baixar o arquivo: {e}")
+            logger.error(f"Failed downloaded files ... : {e}")
         finally:
             driver.quit()
 
@@ -74,6 +74,14 @@ def config_temp_downloads(download_dir, options):
 
 def download_files():
     """Faz o download dos arquivos ICC e ICF"""
+
+    # Verifica se a pasta 'data' existe e remove, caso positivo
+    if os.path.exists("data"):
+        logger.info("Pasta 'data' encontrada. Removendo...")
+        import shutil
+        shutil.rmtree("data")
+        logger.info("Pasta 'data' removida com sucesso.")
+
     os.makedirs("data", exist_ok=True)
 
     logger.info("Downloading ICC")

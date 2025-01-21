@@ -9,7 +9,7 @@ def execute_queries_from_directory(directory_path):
     """Executa todas as queries em arquivos .sql de um diretório."""
     try:
         client = bigquery.Client.from_service_account_json(GCP_SERVICE_ACCOUNT)
-        logger.info("config BigQuery Client", client)
+        logger.info("config BigQuery Client")
 
         # Lista todos os arquivos .sql no diretório
         for filename in sorted(os.listdir(directory_path)):
@@ -18,7 +18,7 @@ def execute_queries_from_directory(directory_path):
                 with open(file_path, "r") as sql_file:
                     query = sql_file.read().strip()
                     if query:
-                        logger.info("execute query file", filename)
+                        logger.info(f"execute query file ... : {filename}")
                         client.query(query).result()  # Executa a query
                         logger.info("query send successfully")
 

@@ -19,9 +19,10 @@ def load_to_bigquery(filepath, table_name):
         with open(filepath, "rb") as file:
             job = client.load_table_from_file(file, table_id, job_config=job_config)
         job.result()  # Aguarda a conclusão do job
-        print(f"Tabela {table_name} carregada com sucesso no BigQuery.")
+
+        logger.info(f"Table {table_name} successfully loaded into BigQuery")
     except Exception as e:
-        print(f"Erro ao carregar a tabela {table_name}: {e}")
+        logger.error(f"Error loading table ...: {table_name} ... : {e}")
 
 def load_all():
     """Processa e carrega todos os arquivos no BigQuery."""
@@ -41,4 +42,4 @@ def load_all():
         load_to_bigquery(icf_csv, "icf_raw")
 
     except Exception as e:
-        print(f"Erro ao processar e carregar os arquivos: {e}")
+        logger.error(f"Error processing files ... : {e}")
