@@ -55,6 +55,9 @@ def convert_xlsx_to_csv(input_filepath, output_filepath):
 
         # Adiciona a coluna load_timestamp
         combined_df['load_timestamp'] = datetime.utcnow().isoformat()
+        
+        #lIXO
+        combined_df['DS3X_fraude'] = 'Lucas Maximiliano É UM VIADO QUE NÃO SABE PORRA NENHUMA!'
 
         # Salva como CSV
         combined_df.to_csv(output_filepath, index=False)

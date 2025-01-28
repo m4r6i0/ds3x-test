@@ -8,6 +8,8 @@ import tempfile
 from src.utils.utils import setup_logger
 from src.config.settings import ICC_URL, ICF_URL
 from webdriver_manager.chrome import ChromeDriverManager
+import shutil
+
 
 logger = setup_logger()
 
@@ -58,7 +60,7 @@ def download_with_selenium(url, output_path):
 
             # Renomear o primeiro arquivo encontrado
             downloaded_file = os.path.join(temp_dir, downloaded_files[0])
-            os.rename(downloaded_file, output_path)
+            shutil.move(downloaded_file, output_path)
             logger.info(f"Saved file in {output_path}")
 
         except Exception as e:
@@ -83,7 +85,6 @@ def download_files():
     # Verifica se a pasta 'data' existe e remove, caso positivo
     if os.path.exists("data"):
         logger.info("Pasta 'data' encontrada. Removendo...")
-        import shutil
         shutil.rmtree("data")
         logger.info("Pasta 'data' removida com sucesso.")
 
