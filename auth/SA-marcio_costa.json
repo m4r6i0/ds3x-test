@@ -1,0 +1,13 @@
+{
+    "type": "service_account",
+    "project_id": "ps-eng-dados-ds3x",
+    "private_key_id": "b7fa7778cabe3875473c614b667404e213041c92",
+    "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCsbrM85WCtwLqg\nWioU/feiZ7u1XkVHlN5sgwg3Jd6maFB8cz6vBwaitjS6d/JquEJsfmGVs5MSj4Gx\nuWuewZYYa77VynT6WLvYJ9vTdbbBylWY50zuCqC2k0BVKzyCeDfNb0RJzOKA12IS\nAMovamEPC+ZV0xmp0wATnBxeRmsFLp5eMv/KFH2Vg4PYWVTF2mpDKK/UpgXZ8cD9\nlMM3oMwk5Qtgzqp8FnX+crNxzQUDw4haTmg45hG9k0ATx5JJIxM2e6SlvSGPeRrl\nR+z4fxj5cWA63EJV9HN1mkkx7d+HpVQV/XVTItWIPEq50bWnQEJm1YC6dxjEsriE\neTKZRxG3AgMBAAECggEADLWaG3Zyskve1Zvfty1i98L6mGsq4xRLcqcTz3DIoO5W\nZF3gNGlpqUuRxl657PjI2JNWIQEb6YXPUuiuUITHSeSDK+HgzmUE73E8qDDoeA8w\nUPVXe8Inx11CJCTsMFepEUjOuTvTRBjb/yS0wlrubXv8jb3iCdzmCAv9IUvCbp66\nf9FhkINJzl5cXsZSOosKIuCQS1jUSos7zhdt+hlKQqNenjBTWecRCzkssIg5Z99t\nxKcFHfPl1c4Xo7SPQjM7inynUaAKxDIsaJXR7l0armC2haVqvwQ/CEf0VNfCdLAw\nJbMmnC6ULo03oXG8S7gJNpE6XV2MC4a2ZFvGFF3FOQKBgQDfz7Fd7FktZDZb2QtF\njd50RdaA2A+uaAmWJohnGwISNCQPsYlb3m6hFsqo3OLwENf9nLsnL4Af90nJo6rI\nt1s3/bfmEMHHK2RdL5gGhlKVGCZxz1ubrTVzSqWqk2WkRG/hGiwiuMzn3dRdjplv\nR3VyOZPdk23DqA2sP8Gq7+nC6QKBgQDFO1Wmv1iQT2UEv1PxH7KT3uq5oWZs44e/\ngTU3b8i1A/wWVr4wr+rSems7fJEoJ6/cPrZt8+hGNr/i7sOEPHTnZjmy2t1+yXd3\n2LSrQ/xJL/H7W8rTT/Nim4VfslJRccI3gD2GeAlvXiz8DWPMgs4unHkMgTb+Z9VO\nPtNUdZ8LnwKBgQDDB4SC2RM4x8vKq87ztFW2MqliK2U20LgR3NAeMN3UKRWHi2ir\n4p+6xlahYaJsGfFtsecwlWbr9BybloCbWZQmrXRUCiQiQAC8Z13tyZ0rCRlvMYed\nmAksx06n3rvCslRf7uOo+iqsnpSRVlMEMlv4xo3Altkel1Ia2JAWOewVCQKBgGtn\nsW/52ZfUtJVOP78aXNwr07U9EJMRoPYHvdwvkqQIxHnByRaoZf8yzTx6zG2Klzkg\nKaZc4cuCuyIwleZoKd1tjNQ6Xc5Sli18pH5zqmqMooEYbq5+ZnL3cD051Zwmj/Y7\nbsXQjorIRUUJYaSYQwGdEkpd/32xO7a9fcYLu43PAoGAF8cRceXzILBH1I3rdDcG\nY6xmDvMMeCXU2rQTAEQVjD3eO/xw3FtRy0X0abO5Qn33cNY3/8l4ci9aWt7CCtF9\nJhA4fpuFMs0CTEgMwMzhvLoRgcuZrrIKhwjmRQUgEqCjLuY2aM0yCBGgjuiLO7Fs\n0UtzG5ynq3TPvG0MNAFNWI0=\n-----END PRIVATE KEY-----\n",
+    "client_email": "marciocosta@ps-eng-dados-ds3x.iam.gserviceaccount.com",
+    "client_id": "114479644895658466086",
+    "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+    "token_uri": "https://oauth2.googleapis.com/token",
+    "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+    "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/marciocosta%40ps-eng-dados-ds3x.iam.gserviceaccount.com",
+    "universe_domain": "googleapis.com"
+  }

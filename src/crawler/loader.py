@@ -13,7 +13,8 @@ def load_to_bigquery(filepath, table_name):
 
         job_config = bigquery.LoadJobConfig(
             source_format=bigquery.SourceFormat.CSV,
-            autodetect=True
+            autodetect=True,
+            field_delimiter=','
         )
 
         with open(filepath, "rb") as file:

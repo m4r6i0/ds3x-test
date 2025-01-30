@@ -37,6 +37,10 @@ def process_and_combine_sheets(file_path):
 
             # Filtra apenas as colunas relevantes
             relevant_columns = ['indice', 'variacao']
+            if not all(col in df.columns for col in relevant_columns):
+                logger.warning(f"A aba '{sheet_name}' está faltando colunas relevantes e será ignorada.")
+                continue
+
             df = df[[col for col in df.columns if col in relevant_columns]]
 
             # Adiciona ao DataFrame combinado
@@ -48,21 +52,41 @@ def process_and_combine_sheets(file_path):
         raise
 
 def convert_xlsx_to_csv(input_filepath, output_filepath):
-    """Converte um arquivo .xlsx para .csv e adiciona a coluna load_timestamp."""
     try:
-        # Processa e combina as abas do Excel
         combined_df = process_and_combine_sheets(input_filepath)
 
-        # Adiciona a coluna load_timestamp
-        combined_df['load_timestamp'] = datetime.utcnow().isoformat()
-        
-        #lIXO
-        combined_df['DS3X_fraude'] = 'Lucas Maximiliano É UM VIADO QUE NÃO SABE PORRA NENHUMA!'
+        if combined_df.empty:
+            logger.warning(f"Nenhum dado foi combinado no DataFrame. O arquivo CSV não será criado.")
+            return
 
-        # Salva como CSV
+        # Filtra o DataFrame para remover linhas indesejadas
+        combined_df = combined_df[combined_df['indice'].notna() & combined_df['indice'].str.strip() != '']
+        combined_df = combined_df[pd.to_numeric(combined_df['variacao'], errors='coerce').notna()]
+
+        combined_df['load_timestamp'] = datetime.utcnow().isoformat()
         combined_df.to_csv(output_filepath, index=False)
+        
         logger.info(f"Arquivo convertido com sucesso: {output_filepath}")
         return output_filepath
     except Exception as e:
         logger.error(f"Erro ao converter o arquivo {input_filepath}: {e}")
         raise
+
+
+
+# def convert_xlsx_to_csv(input_filepath, output_filepath):
+#     """Converte um arquivo .xlsx para .csv e adiciona a coluna load_timestamp."""
+#     try:
+#         # Processa e combina as abas do Excel
+#         combined_df = process_and_combine_sheets(input_filepath)
+
+#         # Adiciona a coluna load_timestamp
+#         combined_df['load_timestamp'] = datetime.utcnow().isoformat()
+   
+#         # Salva como CSV
+#         combined_df.to_csv(output_filepath, index=False)
+#         logger.info(f"Arquivo convertido com sucesso: {output_filepath}")
+#         return output_filepath
+#     except Exception as e:
+#         logger.error(f"Erro ao converter o arquivo {input_filepath}: {e}")
+#         raise
